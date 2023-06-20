@@ -1,0 +1,49 @@
+# include<stdio.h>
+# include <stdlib.h>
+#include <string.h>
+int max(int a,int b)
+{
+    if(a>b)
+    {
+        return a;
+    }
+    else
+    {
+        return b;
+    }
+}
+int findLCS(char *x,char *y,int xlen,int ylen)
+{
+    int L[xlen+1][ylen+1];
+    int r,c,i;
+    for(r=0;r<=xlen;r++)
+    {
+        for(c=0;c<=ylen;c++)
+        {
+            if(r==0||c==0)
+            {
+                L[r][c]=0;
+            }
+            else if(x[r-1]==y[c-1])
+            {
+                L[r][c]=L[r-1][c-1]+1;
+            }
+            else
+            {
+                L[r][c]=max(L[r][c-1],L[r-1][c]);
+            }
+        }
+    }
+    return L[xlen][ylen];
+}
+void main()
+{
+    char *s1=malloc(sizeof(char));
+    char *s2=malloc(sizeof(char));
+    gets(s1);
+    gets(s2);
+    int s1len=strlen(s1);
+    int s2len=strlen(s2);
+    int result=findLCS(s1,s2,s1len,s2len);
+    printf("%d",result);
+}
