@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stdlib.h>
+int partition(int a[],int lb,int ub)
+{
+    int pivot=a[lb];
+    int start=lb;
+    int end=ub;
+    while(start<end)
+    {
+        while(a[start]<=pivot)
+        {
+            start++;
+        }
+        while(a[end]>pivot)
+        {
+            end--;
+        }
+        if(start<end)
+        {
+            int temp;
+            temp=a[start];
+            a[start]=a[end];
+            a[end]=temp;
+        }
+    }
+    int temp1;
+    temp1=a[lb];
+    a[lb]=a[end];
+    a[end]=temp1;
+    return end;
+}
+void quicksort(int a[],int low,int high)
+{
+    if(low<high)
+    {
+    int loc=partition(a,low,high);
+    quicksort(a,low,loc-1);
+    quicksort(a,loc+1,high);
+    }
+}
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; ++i) {
+    printf("%d  ", array[i]);
+  }
+  printf("\n");
+}
+void main()
+{
+    int arr[10],n,l,u;
+    scanf("%d",&n);
+    l=0,u=n-1;
+    for(int j=0;j<n;j++)
+    {
+        scanf("%d",&arr[j]);
+    }
+    printArray(arr,n);
+    quicksort(arr,l,u);
+    printArray(arr,n);
+}
